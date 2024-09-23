@@ -2,34 +2,26 @@ package com.shybovycha.mookeyboard
 
 import android.inputmethodservice.InputMethodService
 import android.view.View
-import android.widget.Button
-import android.widget.GridLayout
 
 class CustomKeyboard : InputMethodService() {
 
-    private lateinit var keyboardView: View
-    private val buttons = mutableListOf<Button>()
+    private lateinit var keyboardLayout: KeyboardLayout
 
     override fun onCreateInputView(): View {
-        keyboardView = layoutInflater.inflate(R.layout.keyboard_layout3, null)
+        keyboardLayout = KeyboardLayout(this)
 
-        val gridLayout = keyboardView.findViewById<GridLayout>(R.id.gridLayout)
+        val keys = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "⌫")
 
-        for (i in 1..9) {
-            val button = Button(this)
-            button.text = i.toString()
-            button.setOnClickListener { onKeyPress(i.toString()) }
-            buttons.add(button)
-            gridLayout.addView(button)
+        for (key in keys) {
+            keyboardLayout.addKey(key) {
+                when (key) {
+                    "⌫" -> onBackspace()
+                    else -> onKeyPress(key)
+                }
+            }
         }
 
-        val backspaceButton = Button(this)
-        backspaceButton.text = "⌫"
-        backspaceButton.setOnClickListener { onBackspace() }
-        buttons.add(backspaceButton)
-        gridLayout.addView(backspaceButton)
-
-        return keyboardView
+        return keyboardLayout
     }
 
     private fun onKeyPress(key: String) {
