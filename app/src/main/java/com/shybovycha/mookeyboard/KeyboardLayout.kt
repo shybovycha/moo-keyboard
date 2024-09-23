@@ -27,15 +27,14 @@ class KeyboardLayout @JvmOverloads constructor(
         }
     }
 
-    fun addKey(key: String, onClickListener: OnClickListener) {
+    fun addKey(): SquareButton {
         val rowIdx = childCount / columnCount
         val columnIdx = childCount % columnCount
 
-        val button = SquareButton(context).apply {
-            text = "${key} (${rowIdx} / ${columnIdx})"
-            setOnClickListener(onClickListener)
-        }
+        val button = SquareButton(context)
 
         addView(button, LayoutParams(spec(rowIdx + 1, CENTER), spec(columnIdx, CENTER)))
+
+        return button
     }
 }
