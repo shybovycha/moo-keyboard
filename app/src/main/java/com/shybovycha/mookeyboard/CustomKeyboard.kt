@@ -1,52 +1,44 @@
 package com.shybovycha.mookeyboard
 
 import android.inputmethodservice.InputMethodService
-import android.inputmethodservice.Keyboard
-import android.inputmethodservice.KeyboardView
-import android.view.KeyEvent
 import android.view.View
+import android.widget.Button
+import android.widget.GridLayout
 
-class CustomKeyboard : InputMethodService(), KeyboardView.OnKeyboardActionListener {
+class CustomKeyboard : InputMethodService() {
 
-    private lateinit var keyboardView: KeyboardView
-    private lateinit var keyboard: Keyboard
+    private lateinit var keyboardView: View
+    private val buttons = mutableListOf<Button>()
 
     override fun onCreateInputView(): View {
-        keyboardView = layoutInflater.inflate(R.layout.keyboard_layout, null) as KeyboardView
-        keyboard = Keyboard(this, R.xml.keyboard_view)
-        keyboardView.keyboard = keyboard
-        keyboardView.setOnKeyboardActionListener(this)
+        keyboardView = layoutInflater.inflate(R.layout.keyboard_layout3, null)
+
+        val gridLayout = keyboardView.findViewById<GridLayout>(R.id.gridLayout)
+
+        for (i in 1..9) {
+            val button = Button(this)
+            button.text = i.toString()
+            button.setOnClickListener { onKeyPress(i.toString()) }
+            buttons.add(button)
+            gridLayout.addView(button)
+        }
+
+        val backspaceButton = Button(this)
+        backspaceButton.text = "⌫"
+        backspaceButton.setOnClickListener { onBackspace() }
+        buttons.add(backspaceButton)
+        gridLayout.addView(backspaceButton)
+
         return keyboardView
     }
 
-    override fun onKey(primaryCode: Int, keyCodes: IntArray?) {
+    private fun onKeyPress(key: String) {
         val inputConnection = currentInputConnection
-        when (primaryCode) {
-            Keyboard.KEYCODE_DELETE -> {
-                inputConnection.deleteSurroundingText(1, 0)
-            }
-            Keyboard.KEYCODE_DONE -> {
-                inputConnection.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
-            }
-            else -> {
-                val code = primaryCode.toChar()
-                inputConnection.commitText(code.toString(), 1)
-            }
-        }
+        inputConnection?.commitText(key, 1)
     }
 
-    // Implement other required methods from KeyboardView.OnKeyboardActionListener
-    override fun onPress(primaryCode: Int) {}
-
-    override fun onRelease(primaryCode: Int) {}
-
-    override fun onText(text: CharSequence?) {}
-
-    override fun swipeLeft() {}
-
-    override fun swipeRight() {}
-
-    override fun swipeDown() {}
-
-    override fun swipeUp() {}
+    private fun onBackspace() {
+        val inputConnection = currentInputConnection
+        inputConnection?.deleteSurroundingText(1, 0)
+    }
 }
