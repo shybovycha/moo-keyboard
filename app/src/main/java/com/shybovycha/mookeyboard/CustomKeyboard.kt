@@ -4,6 +4,7 @@ import android.inputmethodservice.InputMethodService
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.widget.GridLayout
 
 class CustomKeyboard : InputMethodService() {
 
@@ -22,62 +23,241 @@ class CustomKeyboard : InputMethodService() {
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "A", onKeyPressHandler)
-            addSubKey(1, 2, "-", onKeyPressHandler)
-            addSubKey(2, 0, "$", onKeyPressHandler)
-            addSubKey(2, 2, "V", onKeyPressHandler)
+            addSubKey(1, 1, "A", onKeyPressHandler).apply {
+                setTextAppearance(R.style.MainKey)
+            }
+            addSubKey(1, 2, "-", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(2, 0, "$", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(2, 2, "V", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(0, 0, "`", onKeyPressHandler)
-            addSubKey(0, 1, "^", onKeyPressHandler)
-            addSubKey(0, 2, "´", onKeyPressHandler)
-            addSubKey(1, 0, "+", onKeyPressHandler)
-            addSubKey(1, 1, "N", onKeyPressHandler)
-            addSubKey(1, 2, "!", onKeyPressHandler)
-            addSubKey(2, 0, "/", onKeyPressHandler)
-            addSubKey(2, 1, "L", onKeyPressHandler)
-            addSubKey(2, 2, "\\", onKeyPressHandler)
+            addSubKey(0, 0, "`", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(0, 1, "^", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(0, 2, "´", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(1, 0, "+", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(1, 1, "N", onKeyPressHandler).apply {
+                setTextAppearance(R.style.MainKey)
+            }
+            addSubKey(1, 2, "!", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(2, 0, "/", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(2, 1, "L", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(2, 2, "\\", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "I", onKeyPressHandler)
+            addSubKey(1, 0, "?", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(1, 1, "I", onKeyPressHandler).apply {
+                setTextAppearance(R.style.MainKey)
+            }
+            addSubKey(2, 0, "X", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(2, 1, "=", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "settings", fun (_) {})
+            addSubKey(1, 1, "⚙", fun (_) {}).apply {
+                setTextAppearance(R.style.ControlKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "H", onKeyPressHandler)
+            addSubKey(0, 1, "{", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(0, 2, "%", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(1, 0, "(", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(1, 1, "H", onKeyPressHandler).apply {
+                setTextAppearance(R.style.MainKey)
+            }
+            addSubKey(1, 2, "K", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(2, 0, "[", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(2, 2, "_", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "O", onKeyPressHandler)
+            addSubKey(0, 0, "Q", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(0, 1, "U", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(0, 2, "P", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(1, 0, "C", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(1, 1, "O", onKeyPressHandler).apply {
+                setTextAppearance(R.style.MainKey)
+            }
+            addSubKey(1, 2, "B", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(2, 0, "G", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(2, 1, "D", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(2, 2, "J", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "R", onKeyPressHandler)
+            addSubKey(0, 0, "|", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(0, 1, "↥", onKeyPressHandler).apply {
+                setTextAppearance(R.style.ControlKey)
+            }
+            addSubKey(0, 2, "}", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(1, 0, "M", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(1, 1, "R", onKeyPressHandler).apply {
+                setTextAppearance(R.style.MainKey)
+            }
+            addSubKey(1, 2, ")", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(2, 0, "@", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(2, 1, "↧", onKeyPressHandler).apply {
+                setTextAppearance(R.style.ControlKey)
+            }
+            addSubKey(2, 2, "]", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "123", fun (_) {})
+            addSubKey(1, 1, "123", fun (_) {}).apply {
+                setTextAppearance(R.style.ControlKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "T", onKeyPressHandler)
+            addSubKey(0, 0, "~", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(0, 1, "¨", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(0, 2, "Y", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(1, 0, "<", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(1, 1, "T", onKeyPressHandler).apply {
+                setTextAppearance(R.style.MainKey)
+            }
+            addSubKey(1, 2, "*", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "E", onKeyPressHandler)
+            addSubKey(0, 0, "\"", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(0, 1, "W", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(0, 2, "'", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(1, 1, "E", onKeyPressHandler).apply {
+                setTextAppearance(R.style.MainKey)
+            }
+            addSubKey(1, 2, "Z", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "S", onKeyPressHandler)
+            addSubKey(0, 0, "F", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SubKey)
+            }
+            addSubKey(0, 1, "&", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
+            addSubKey(1, 1, "S", onKeyPressHandler).apply {
+                setTextAppearance(R.style.MainKey)
+            }
+            addSubKey(1, 2, ">", onKeyPressHandler).apply {
+                setTextAppearance(R.style.SymbolKey)
+            }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "⌫", onBackspaceHandler)
+            addSubKey(1, 1, "⌫", onBackspaceHandler).apply {
+                setTextAppearance(R.style.ControlKey)
+            }
+        }
+
+        keyboardLayout.addKey().apply {
+            addSubKey(1, 1, "␣", fun (_) { onKeyPress(" ") }).apply {
+                setTextAppearance(R.style.ControlKey)
+            }
+
+            (layoutParams as GridLayout.LayoutParams).apply {
+                columnSpec = GridLayout.spec(0, 3, 3f)
+                rowSpec = GridLayout.spec(4)
+            }
+        }
+
+        keyboardLayout.addKey().apply {
+            addSubKey(1, 1, "⏎", fun (_) { onKeyPressHandler("\n") }).apply {
+                setTextAppearance(R.style.ControlKey)
+            }
+
+            (layoutParams as GridLayout.LayoutParams).apply {
+                columnSpec = GridLayout.spec(3)
+                rowSpec = GridLayout.spec(4)
+            }
         }
 
         return keyboardLayout

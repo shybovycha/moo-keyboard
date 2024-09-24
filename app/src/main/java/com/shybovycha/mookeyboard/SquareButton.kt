@@ -72,6 +72,7 @@ class SquareButton(
             for (t in 0..2) {
                 val cell = cells[i][t]
                 cell.textAlignment = TEXT_ALIGNMENT_CENTER
+                cell.text = " "
 //                cell.setBackgroundResource(R.drawable.key_preview_background)
                 val params = LayoutParams(spec(i, 1f), spec(t, 1f))
                 params.setGravity(TEXT_ALIGNMENT_CENTER)
@@ -91,12 +92,14 @@ class SquareButton(
         return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
     }
 
-    fun addSubKey(row: Int, column: Int, key: String, onKeyPressHandler: (key: String) -> Unit) {
+    fun addSubKey(row: Int, column: Int, key: String, onKeyPressHandler: (key: String) -> Unit): TextView {
         cells[row][column].text = key
 
         onKeyPress = onKeyPressHandler
 
         subKeys[getDirection(row, column)] = key
+
+        return cells[row][column]
     }
 
     private fun getDirection(row: Int, column: Int): Direction {

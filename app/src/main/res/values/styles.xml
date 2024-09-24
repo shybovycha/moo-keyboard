@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="MainKey.TextSize">18sp</dimen>
+    <color name="MainKey.TextColor">#5C6BC0</color>
+
+    <style name="MainKey">
+        <item name="android:textSize">@dimen/MainKey.TextSize</item>
+        <item name="android:textColor">@color/MainKey.TextColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <dimen name="SubKey.TextSize">16sp</dimen>
+    <color name="SubKey.TextColor">#9E9E9E</color>
+
+    <style name="SubKey">
+        <item name="android:textSize">@dimen/SubKey.TextSize</item>
+        <item name="android:textColor">@color/SubKey.TextColor</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <dimen name="SymbolKey.TextSize">16sp</dimen>
+    <color name="SymbolKey.TextColor">#9CCC65</color>
+
+    <style name="SymbolKey">
+        <item name="android:textSize">@dimen/SymbolKey.TextSize</item>
+        <item name="android:textColor">@color/SymbolKey.TextColor</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <dimen name="ControlKey.TextSize">18sp</dimen>
+    <color name="ControlKey.TextColor">#9CCC65</color>
+
+    <style name="ControlKey">
+        <item name="android:textSize">@dimen/ControlKey.TextSize</item>
+        <item name="android:textColor">@color/ControlKey.TextColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

@@ -12,7 +12,7 @@ class KeyboardLayout @JvmOverloads constructor(
 
     init {
         columnCount = 4
-        rowCount = 4
+        rowCount = 5
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -35,7 +35,10 @@ class KeyboardLayout @JvmOverloads constructor(
 
         button.setBackgroundResource(R.drawable.key_preview_background)
 
-        addView(button, LayoutParams(spec(rowIdx + 1, CENTER), spec(columnIdx, CENTER)))
+        addView(
+            button,
+            LayoutParams(spec(rowIdx + 1, CENTER), spec(columnIdx, CENTER))
+        )
 
         return button
     }
