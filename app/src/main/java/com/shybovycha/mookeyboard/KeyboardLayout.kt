@@ -33,6 +33,8 @@ class KeyboardLayout @JvmOverloads constructor(
 
         val button = SquareButton(context)
 
+        button.setBackgroundResource(R.drawable.key_preview_background)
+
         addView(button, LayoutParams(spec(rowIdx + 1, CENTER), spec(columnIdx, CENTER)))
 
         return button

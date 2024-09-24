@@ -1,6 +1,8 @@
 package com.shybovycha.mookeyboard
 
 import android.inputmethodservice.InputMethodService
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 
 class CustomKeyboard : InputMethodService() {
@@ -10,74 +12,72 @@ class CustomKeyboard : InputMethodService() {
     override fun onCreateInputView(): View {
         keyboardLayout = KeyboardLayout(this)
 
-//        val keys = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "⌫")
-//
-//        for (key in keys) {
-//            keyboardLayout.addKey(key) {
-//                when (key) {
-//                    "⌫" -> onBackspace()
-//                    else -> onKeyPress(key)
-//                }
-//            }
-//        }
+        val onKeyPressHandler: (String) -> Unit = fun (key: String) {
+            onKeyPress(key)
+        }
 
-        keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "A") //, fun(key: String) { onKeyPress("A") })
-            addSubKey(1, 2, "-")
-            addSubKey(2, 0, "$")
-            addSubKey(2, 2, "V")
+        val onBackspaceHandler: (String) -> Unit = fun (_) {
+            Log.d("MooKeyboard", "backspace?")
+            onBackspace()
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(0, 0, "`")
-            addSubKey(0, 1, "^")
-            addSubKey(0, 2, "´")
-            addSubKey(1, 0, "+")
-            addSubKey(1, 1, "N")
-            addSubKey(1, 2, "!")
-            addSubKey(2, 0, "/")
-            addSubKey(2, 1, "L")
-            addSubKey(2, 2, "\\")
+            addSubKey(1, 1, "A", onKeyPressHandler)
+            addSubKey(1, 2, "-", onKeyPressHandler)
+            addSubKey(2, 0, "$", onKeyPressHandler)
+            addSubKey(2, 2, "V", onKeyPressHandler)
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "I")
+            addSubKey(0, 0, "`", onKeyPressHandler)
+            addSubKey(0, 1, "^", onKeyPressHandler)
+            addSubKey(0, 2, "´", onKeyPressHandler)
+            addSubKey(1, 0, "+", onKeyPressHandler)
+            addSubKey(1, 1, "N", onKeyPressHandler)
+            addSubKey(1, 2, "!", onKeyPressHandler)
+            addSubKey(2, 0, "/", onKeyPressHandler)
+            addSubKey(2, 1, "L", onKeyPressHandler)
+            addSubKey(2, 2, "\\", onKeyPressHandler)
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "settings")
+            addSubKey(1, 1, "I", onKeyPressHandler)
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "H")
+            addSubKey(1, 1, "settings", fun (_) {})
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "O")
+            addSubKey(1, 1, "H", onKeyPressHandler)
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "R")
+            addSubKey(1, 1, "O", onKeyPressHandler)
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "123")
+            addSubKey(1, 1, "R", onKeyPressHandler)
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "T")
+            addSubKey(1, 1, "123", fun (_) {})
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "E")
+            addSubKey(1, 1, "T", onKeyPressHandler)
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "S")
+            addSubKey(1, 1, "E", onKeyPressHandler)
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "⌫")
+            addSubKey(1, 1, "S", onKeyPressHandler)
+        }
+
+        keyboardLayout.addKey().apply {
+            addSubKey(1, 1, "⌫", onBackspaceHandler)
         }
 
         return keyboardLayout
@@ -90,6 +90,7 @@ class CustomKeyboard : InputMethodService() {
 
     private fun onBackspace() {
         val inputConnection = currentInputConnection
-        inputConnection?.deleteSurroundingText(1, 0)
+        inputConnection?.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
+        inputConnection?.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
     }
 }
