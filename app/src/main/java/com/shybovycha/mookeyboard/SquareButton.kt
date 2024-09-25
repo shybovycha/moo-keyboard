@@ -3,14 +3,12 @@ package com.shybovycha.mookeyboard;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log
-import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.GridLayout
 import android.widget.TextView
-import androidx.core.view.GestureDetectorCompat
-import kotlin.math.abs
 
 class SquareButton(
+    private val onTouchEventHandler: ((MotionEvent, SquareButton) -> Unit),
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -22,44 +20,7 @@ class SquareButton(
 
     private val cells = Array(3) { Array(3) { TextView(context) } }
 
-    private var onKeyPress: ((String) -> Unit)? = null
-
     private val subKeys = HashMap<Direction, String>()
-
-    private val gestureDetector = GestureDetectorCompat(context, object : GestureDetector.SimpleOnGestureListener() {
-        override fun onFling(e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            Log.d("MooKeyboard", "e1: $e1, e2: $e2")
-
-            if (e1 == null) return false
-
-            val dx = e2.x - e1.x
-            val dy = e2.y - e1.y
-
-            when {
-                abs(dx) > abs(dy) -> {
-                    if (dx > 0) onSwipeListener(Direction.RIGHT)
-                    else onSwipeListener(Direction.LEFT)
-                }
-
-                else -> {
-                    if (dy > 0) onSwipeListener(Direction.DOWN)
-                    else onSwipeListener(Direction.UP)
-                }
-            }
-
-            return true
-        }
-
-        override fun onSingleTapUp(e: MotionEvent): Boolean {
-            Log.d("MooKeyboard", "single tap")
-            onCenterClickListener()
-            return true
-        }
-
-        override fun onDown(e: MotionEvent): Boolean {
-            return true
-        }
-    })
 
     init {
         columnCount = 3
@@ -89,17 +50,22 @@ class SquareButton(
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         Log.d("MooKeyboard", "touch event: $event")
-        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
+        onTouchEventHandler.invoke(event, this)
+        return true
     }
 
-    fun addSubKey(row: Int, column: Int, key: String, onKeyPressHandler: (key: String) -> Unit): TextView {
+    fun addSubKey(row: Int, column: Int, key: String): TextView {
         cells[row][column].text = key
-
-        onKeyPress = onKeyPressHandler
 
         subKeys[getDirection(row, column)] = key
 
         return cells[row][column]
+    }
+
+    fun getSubKey(dir: Direction): String? {
+        if (!subKeys.containsKey(dir)) return null
+
+        return subKeys[dir]
     }
 
     private fun getDirection(row: Int, column: Int): Direction {
@@ -114,15 +80,5 @@ class SquareButton(
             row == 2 && column == 1 -> Direction.DOWN
             else -> Direction.DOWN_RIGHT
         }
-    }
-
-    private fun onSwipeListener(dir: Direction) {
-        Log.d("MooKeyboard", "swipe $dir")
-        if (subKeys.containsKey(dir)) onKeyPress?.invoke(subKeys[dir] as String)
-    }
-
-    private fun onCenterClickListener() {
-//        Log.d("MooKeyboard", "center tap")
-        if (subKeys.containsKey(Direction.CENTER)) onKeyPress?.invoke(subKeys[Direction.CENTER] as String)
     }
 }
