@@ -75,7 +75,7 @@ class CustomKeyboard : InputMethodService() {
 
         keyboardLayout.addKey().apply {
             addSubKey(1, 1, "settings", ImageView(context)).apply {
-                setImageResource(R.drawable.baseline_settings_24)
+                setImageResource(R.drawable.baseline_settings_16)
             }
         }
 
@@ -225,13 +225,13 @@ class CustomKeyboard : InputMethodService() {
 
         keyboardLayout.addKey().apply {
             addSubKey(1, 1, "backspace", ImageView(context)).apply {
-                setImageResource(R.drawable.baseline_backspace_24)
+                setImageResource(R.drawable.baseline_backspace_16)
             }
         }
 
         keyboardLayout.addKey().apply {
             addSubKey(1, 1, "space", ImageView(context)).apply {
-                setImageResource(R.drawable.baseline_space_bar_24)
+                setImageResource(R.drawable.baseline_space_bar_16)
             }
 
             (layoutParams as GridLayout.LayoutParams).apply {
@@ -242,7 +242,7 @@ class CustomKeyboard : InputMethodService() {
 
         keyboardLayout.addKey().apply {
             addSubKey(1, 1, "enter", ImageView(context)).apply {
-                setImageResource(R.drawable.baseline_keyboard_return_24)
+                setImageResource(R.drawable.baseline_keyboard_return_16)
             }
 
             (layoutParams as GridLayout.LayoutParams).apply {
