@@ -4,6 +4,7 @@ import android.inputmethodservice.InputMethodService
 import android.view.KeyEvent
 import android.view.View
 import android.widget.GridLayout
+import android.widget.ImageView
 
 class CustomKeyboard : InputMethodService() {
 
@@ -73,8 +74,8 @@ class CustomKeyboard : InputMethodService() {
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "⚙").apply {
-                setTextAppearance(R.style.ControlKey)
+            addSubKey(1, 1, "settings", ImageView(context)).apply {
+                setImageResource(R.drawable.baseline_settings_24)
             }
         }
 
@@ -223,14 +224,14 @@ class CustomKeyboard : InputMethodService() {
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "⌫").apply {
-                setTextAppearance(R.style.ControlKey)
+            addSubKey(1, 1, "backspace", ImageView(context)).apply {
+                setImageResource(R.drawable.baseline_backspace_24)
             }
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "␣").apply {
-                setTextAppearance(R.style.ControlKey)
+            addSubKey(1, 1, "space", ImageView(context)).apply {
+                setImageResource(R.drawable.baseline_space_bar_24)
             }
 
             (layoutParams as GridLayout.LayoutParams).apply {
@@ -240,8 +241,8 @@ class CustomKeyboard : InputMethodService() {
         }
 
         keyboardLayout.addKey().apply {
-            addSubKey(1, 1, "⏎").apply {
-                setTextAppearance(R.style.ControlKey)
+            addSubKey(1, 1, "enter", ImageView(context)).apply {
+                setImageResource(R.drawable.baseline_keyboard_return_24)
             }
 
             (layoutParams as GridLayout.LayoutParams).apply {
@@ -257,15 +258,15 @@ class CustomKeyboard : InputMethodService() {
         val inputConnection = currentInputConnection
 
         when (key) {
-            "⌫" -> {
+            "backspace" -> {
                 inputConnection?.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
                 inputConnection?.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
             }
-            "⏎" -> {
+            "enter" -> {
                 inputConnection?.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
                 inputConnection?.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER))
             }
-            "␣" -> {
+            "space" -> {
                 inputConnection?.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE))
                 inputConnection?.sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE))
             }

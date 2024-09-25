@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.widget.GridLayout
 import android.widget.TextView
 
@@ -18,7 +19,7 @@ class SquareButton(
         UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT, CENTER
     }
 
-    private val cells = Array(3) { Array(3) { TextView(context) } }
+    private val cells: Array<Array<View>> = Array(3) { Array(3) { TextView(context) } }
 
     private val subKeys = HashMap<Direction, String>()
 
@@ -31,10 +32,9 @@ class SquareButton(
     private fun setupGrid() {
         for (i in 0..2) {
             for (t in 0..2) {
-                val cell = cells[i][t]
+                val cell = cells[i][t] as TextView
                 cell.textAlignment = TEXT_ALIGNMENT_CENTER
                 cell.text = " "
-//                cell.setBackgroundResource(R.drawable.key_preview_background)
                 val params = LayoutParams(spec(i, 1f), spec(t, 1f))
                 params.setGravity(TEXT_ALIGNMENT_CENTER)
                 addView(cell, params)
@@ -55,11 +55,26 @@ class SquareButton(
     }
 
     fun addSubKey(row: Int, column: Int, key: String): TextView {
-        cells[row][column].text = key
+        val view = TextView(context).apply {
+            text = key
+            textAlignment = TEXT_ALIGNMENT_CENTER
+        }
+
+        return addSubKey(row, column, key, view)
+    }
+
+    fun <T : View>addSubKey(row: Int, column: Int, key: String, view: T): T {
+        removeView(cells[row][column])
+
+        val params = LayoutParams(spec(row, 1f), spec(column, 1f))
+        params.setGravity(TEXT_ALIGNMENT_CENTER)
+        addView(view, params)
+
+        cells[row][column] = view
 
         subKeys[getDirection(row, column)] = key
 
-        return cells[row][column]
+        return cells[row][column] as T
     }
 
     fun getSubKey(dir: Direction): String? {
